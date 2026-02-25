@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="Remote Host (5fe2f177-1129-4a91-845c-53fb7a99e361)">
+        <serverdata>
+          <mappings>
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/device" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/host" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/portable/analog/max3421" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/portable/raspberrypi/pio_usb" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/portable/raspberrypi/rp2040" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/portable/nordic/nrf5x" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/portable/synopsys/dwc2" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/portable/st/stm32_fsdev" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/portable/microchip/samd" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/portable/wch" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/common" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/class/midi" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/class/video" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/class/usbtmc" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/class/vendor" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/class/dfu" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/class/audio" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/class/net" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/class/hid" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/class/bth" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/class/msc" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/class/cdc" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino/midi" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino/video" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino/hid" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino/webusb" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino/cdc" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino/msc" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino/ports/nrf" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino/ports/esp32" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino/ports/rp2040" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino/ports/samd" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Adafruit_TinyUSB_Arduino/src/arduino/ports/ch32" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/Wire/src" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/EEPROM/src" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/SPI/src" web="/" />
+            <mapping local="$USER_HOME$/.platformio/packages/framework-arduino-openwch-ch32/libraries/USBPD_SINK/src" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
