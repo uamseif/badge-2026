@@ -94,14 +94,4 @@ pio run --target upload
 
 pio device monitor
 
----
 
-## 📁 Project Structure
-
-.  
-├── include/          # Header files  
-├── src/              # Active example source code  
-├── examples/         # Individual example implementations  
-├── lib/              # External or shared libraries  
-├── platformio.ini    # PlatformIO configuration  
-└── README.md
