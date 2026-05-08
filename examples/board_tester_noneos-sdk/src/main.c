@@ -126,11 +126,11 @@ int main(void) {
         if (test) {
             CBTS_MATRIX_setLed(&display, RED_DRIVER, 1, 7, true);
         }
-        CBTS_MATRIX_setLed(&display, RED_DRIVER, 0, 7, (keys >> 0) & 0x01);
-        CBTS_MATRIX_setLed(&display, RED_DRIVER, 1, 7, (keys >> 1) & 0x01);
-        CBTS_MATRIX_setLed(&display, RED_DRIVER, 2, 7, (keys >> 2) & 0x01);
-        CBTS_MATRIX_setLed(&display, RED_DRIVER, 3, 7, (keys >> 3) & 0x01);
-        CBTS_MATRIX_setLed(&display, RED_DRIVER, 4, 7, (keys >> 4) & 0x01);
+        CBTS_MATRIX_setLed(&display, RED_DRIVER, 0, 0, (keys >> 0) & 0x01);
+        CBTS_MATRIX_setLed(&display, RED_DRIVER, 1, 0, (keys >> 1) & 0x01);
+        CBTS_MATRIX_setLed(&display, RED_DRIVER, 2, 0, (keys >> 2) & 0x01);
+        CBTS_MATRIX_setLed(&display, RED_DRIVER, 3, 0, (keys >> 3) & 0x01);
+        CBTS_MATRIX_setLed(&display, RED_DRIVER, 4, 0, (keys >> 4) & 0x01);
 
 
         CBTS_MATRIX_show(&display);

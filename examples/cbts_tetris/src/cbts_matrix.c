@@ -24,7 +24,7 @@ void CBTS_MATRIX_init(CBTS_MATRIX *dev) {
     dev->i2c_addr[GREEN_DRIVER] = CBTS_MATRIX_GREEN_DRIVER_ADDRESS;
     dev->i2c_addr[BLUE_DRIVER] = CBTS_MATRIX_BLUE_DRIVER_ADDRESS;
 
-    //dev->invertedMask = 0b00000001; //Temp fix
+    dev->invertedMask = 0b00000001; //Temp fix
 }
 
 void CBTS_MATRIX_deinit(CBTS_MATRIX *dev)
@@ -114,8 +114,8 @@ void CBTS_MATRIX_setBrightness(CBTS_MATRIX *dev, uint8_t brightness)
 }
 
 void CBTS_MATRIX_setLedWithColor(CBTS_MATRIX *dev, int row, int column, enum LedColor color, bool state) {
-    //row = 15 - row;
-    //column = 7 - column;
+    row = 15 - row;
+    column = 7 - column;
 
     if (color == RED || color == YELLOW || color == MAGENTA || color == WHITE) {
         CBTS_MATRIX_setLed(dev, RED_DRIVER, row, column, state);
@@ -136,38 +136,38 @@ void CBTS_MATRIX_setLedWithColor(CBTS_MATRIX *dev, int row, int column, enum Led
 }
 
 /* LEDs */
-void CBTS_MATRIX_setLed(CBTS_MATRIX *dev, uint8_t devIdx, uint8_t coldIdx, uint8_t rowIdx, bool state)
+void CBTS_MATRIX_setLed(CBTS_MATRIX *dev, uint8_t devIdx, uint8_t rowIdx, uint8_t colIdx, bool state)
 {
     if (!dev || !dev->buffer ||
         devIdx >= CBTS_MATRIX_DEVS ||
-        coldIdx >= _defaultRowBufferSize ||
-        rowIdx >= maxColumns())
+        rowIdx >= _defaultRowBufferSize ||
+        colIdx >= maxColumns())
         return;
 
     if ((dev->invertedMask >> devIdx) & 0x01)
-        rowIdx = maxColumns() - 1 - rowIdx;
+        colIdx = maxColumns() - 1 - colIdx;
 
-    uint8_t index = colIndex(devIdx, rowIdx);
+    uint8_t index = colIndex(devIdx, colIdx);
 
     if (state)
-        dev->buffer[index] |= (1 << coldIdx);
+        dev->buffer[index] |= (1 << rowIdx);
     else
-        dev->buffer[index] &= ~(1 << coldIdx);
+        dev->buffer[index] &= ~(1 << rowIdx);
 }
 
-bool CBTS_MATRIX_getLed(const CBTS_MATRIX *dev, uint8_t devIdx, uint8_t coldIdx, uint8_t rowIdx)
+bool CBTS_MATRIX_getLed(const CBTS_MATRIX *dev, uint8_t devIdx, uint8_t rowIdx, uint8_t colIdx)
 {
     if (!dev || !dev->buffer ||
         devIdx >= CBTS_MATRIX_DEVS ||
-        coldIdx >= _defaultRowBufferSize ||
-        rowIdx >= maxColumns())
+        rowIdx >= _defaultRowBufferSize ||
+        colIdx >= maxColumns())
         return false;
 
     if ((dev->invertedMask >> devIdx) & 0x01)
-        rowIdx = maxColumns() - 1 - rowIdx;
+        colIdx = maxColumns() - 1 - colIdx;
 
-    uint8_t index = colIndex(devIdx, rowIdx);
-    return (dev->buffer[index] >> coldIdx) & 0x01;
+    uint8_t index = colIndex(devIdx, colIdx);
+    return (dev->buffer[index] >> rowIdx) & 0x01;
 }
 
 static inline uint8_t CBTS_MATRIX_colIndex(uint8_t devIdx, uint8_t colIdx)

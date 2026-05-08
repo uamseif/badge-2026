@@ -51,8 +51,8 @@ void CBTS_MATRIX_clear(CBTS_MATRIX *dev);
 void CBTS_MATRIX_setBrightnessSingle(CBTS_MATRIX *dev, uint8_t devIdx, uint8_t brightness);
 void CBTS_MATRIX_setBrightness(CBTS_MATRIX *dev, uint8_t brightness);
 
-void CBTS_MATRIX_setLed(CBTS_MATRIX *dev, uint8_t devIdx, uint8_t coldIdx, uint8_t rowIdx, bool state);
-bool CBTS_MATRIX_getLed(const CBTS_MATRIX *dev, uint8_t devIdx, uint8_t coldIdx, uint8_t rowIdx);
+void CBTS_MATRIX_setLed(CBTS_MATRIX *dev, uint8_t devIdx, uint8_t rowIdx, uint8_t colIdx, bool state);
+bool CBTS_MATRIX_getLed(const CBTS_MATRIX *dev, uint8_t devIdx, uint8_t rowIdx, uint8_t colIdx);
 
 void CBTS_MATRIX_showSingle(CBTS_MATRIX *dev, uint8_t devIdx);
 void CBTS_MATRIX_show(CBTS_MATRIX *dev);
