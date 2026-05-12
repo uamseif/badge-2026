@@ -23,11 +23,14 @@ static bool   ev_exit;
 static bool   ev_any;
 
 static void snake_key_cb(uint16_t key, uint8_t state) {
+    if (key == HAL_KEY_SW_MENU) {
+        if (state == HAL_KEY_EVENT_LONG) ev_exit = true;
+        return;
+    }
     if (state != HAL_KEY_EVENT_DOWN) return;
-    if (key == HAL_KEY_SW_B)    ev_turn = -1;
-    if (key == HAL_KEY_SW_C)    ev_turn =  1;
-    if (key == HAL_KEY_SW_MENU) ev_exit = true;
-    else                        ev_any  = true;
+    if (key == HAL_KEY_SW_B) ev_turn = -1;
+    if (key == HAL_KEY_SW_C) ev_turn =  1;
+    ev_any = true;
 }
 
 /* ---- Helpers ---- */

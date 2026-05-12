@@ -8,8 +8,8 @@
 #define PONG_W          8
 #define PONG_H          16
 #define PONG_PADDLE_W   3
-#define PONG_PADDLE_Y1  1    /* P1 paddle row (top)    */
-#define PONG_PADDLE_Y2  14   /* P2 paddle row (bottom) */
+#define PONG_PADDLE_Y1  0    /* P1 paddle row (top)    */
+#define PONG_PADDLE_Y2  15   /* P2 paddle row (bottom) */
 #define PONG_MAX_SCORE  5
 
 /*

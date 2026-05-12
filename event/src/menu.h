@@ -10,6 +10,11 @@ typedef enum {
     APP_TETRIS,
     APP_PONG,
     APP_SNAKE,
+    APP_ARKANOID,
+    APP_FLAPPY,
+    APP_SINVADERS,
+    APP_FROGGER,
+    APP_LIFE,
 } AppState;
 
 void marquee_init(void);

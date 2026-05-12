@@ -2,6 +2,7 @@
 #include "gpio_hal.h"
 #include "systick_hal.h"
 #include "font.h"
+#include "font3x5.h"
 
 /* ---- Shared input event flag (any key pressed) ---- */
 static bool ev_any_key;
@@ -13,11 +14,11 @@ static void any_key_cb(uint16_t key, uint8_t state) {
 
 /* ---- Game registry ---- */
 
-#define MENU_GAME_COUNT  3
+#define MENU_GAME_COUNT  8
 
-static const char * const GAME_NAMES[MENU_GAME_COUNT]  = { "TETRIS", "PONG",   "SNAKE" };
-static const enum LedColor GAME_COLORS[MENU_GAME_COUNT] = { CYAN,     YELLOW,   GREEN   };
-static const AppState      GAME_STATES[MENU_GAME_COUNT] = { APP_TETRIS, APP_PONG, APP_SNAKE };
+static const char * const GAME_NAMES[MENU_GAME_COUNT]  = { "TETRIS", "PONG",   "SNAKE", "ARKANOID",   "FLAPPY",   "INVADERS",    "FROGGER",  "LIFE"  };
+static const enum LedColor GAME_COLORS[MENU_GAME_COUNT] = { CYAN,     YELLOW,   GREEN,   RED,           MAGENTA,    WHITE,         GREEN,      GREEN   };
+static const AppState      GAME_STATES[MENU_GAME_COUNT] = { APP_TETRIS, APP_PONG, APP_SNAKE, APP_ARKANOID, APP_FLAPPY, APP_SINVADERS, APP_FROGGER, APP_LIFE };
 
 /* ---- Text rendering (horizontal orientation) ----
  *
@@ -60,6 +61,35 @@ static int text_scroll_width(const char *text) {
     int len = 0;
     while (*text++) len++;
     return len * 6 + 16;  /* extra 16 so text fully exits left before reset */
+}
+
+/* ---- 3x5 small-font text rendering ---- */
+
+static void draw_char_small(CBTS_MATRIX *display, char c, int x, enum LedColor color) {
+    int idx = font_index(c);
+    for (int col = 0; col < 3; col++) {
+        uint8_t line = font3x5[idx][col];
+        for (int row = 0; row < 5; row++) {
+            if (line & (1 << row))
+                CBTS_MATRIX_setLedWithColor(display, x + col, row + 2, color, true);
+        }
+    }
+}
+
+static void draw_text_small(CBTS_MATRIX *display, const char *text, int offset,
+                            enum LedColor color) {
+    int x = 16 - offset;
+    while (*text) {
+        draw_char_small(display, *text, x, color);
+        x += 4;
+        text++;
+    }
+}
+
+static int text_scroll_width_small(const char *text) {
+    int len = 0;
+    while (*text++) len++;
+    return len * 4 + 16;
 }
 
 /* ---- Marquee ---- */
@@ -110,7 +140,10 @@ static uint8_t  menu_selected;
 static int      menu_scroll;
 static int      menu_name_width;
 static uint32_t menu_last_tick;
+static uint32_t menu_last_activity;
 static uint8_t  menu_ev_nav;   /* navigation events: left / right */
+
+#define MENU_IDLE_MS  10000
 
 #define MENU_EV_LEFT  0x01
 #define MENU_EV_RIGHT 0x02
@@ -125,11 +158,12 @@ static void menu_key_cb(uint16_t key, uint8_t state) {
 }
 
 void menu_init(void) {
-    menu_selected   = 0;
-    menu_scroll     = 0;
-    menu_name_width = text_scroll_width(GAME_NAMES[0]);
-    menu_last_tick  = HAL_get_tick();
-    menu_ev_nav     = 0;
+    menu_selected     = 0;
+    menu_scroll       = 0;
+    menu_name_width   = text_scroll_width_small(GAME_NAMES[0]);
+    menu_last_tick    = HAL_get_tick();
+    menu_last_activity = menu_last_tick;
+    menu_ev_nav       = 0;
     HalKeyConfig(menu_key_cb);
 }
 
@@ -139,16 +173,21 @@ AppState menu_update(CBTS_MATRIX *display) {
     uint8_t ev  = menu_ev_nav;
     menu_ev_nav = 0;
 
+    uint32_t now = HAL_get_tick();
+
+    if (ev) menu_last_activity = now;
+    if (now - menu_last_activity >= MENU_IDLE_MS) return APP_MARQUEE;
+
     /* Navigate between games (wraps around) */
     if (ev & MENU_EV_LEFT) {
         menu_selected   = (menu_selected + MENU_GAME_COUNT - 1) % MENU_GAME_COUNT;
         menu_scroll     = 0;
-        menu_name_width = text_scroll_width(GAME_NAMES[menu_selected]);
+        menu_name_width = text_scroll_width_small(GAME_NAMES[menu_selected]);
     }
     if (ev & MENU_EV_RIGHT) {
         menu_selected   = (menu_selected + 1) % MENU_GAME_COUNT;
         menu_scroll     = 0;
-        menu_name_width = text_scroll_width(GAME_NAMES[menu_selected]);
+        menu_name_width = text_scroll_width_small(GAME_NAMES[menu_selected]);
     }
 
     /* Select */
@@ -157,14 +196,13 @@ AppState menu_update(CBTS_MATRIX *display) {
         return GAME_STATES[menu_selected];
     }
 
-    uint32_t now = HAL_get_tick();
     if (now - menu_last_tick < 50) return APP_MENU;
     menu_last_tick = now;
 
     CBTS_MATRIX_clear(display);
-    draw_text(display, GAME_NAMES[menu_selected],
-              menu_scroll,
-              GAME_COLORS[menu_selected]);
+    draw_text_small(display, GAME_NAMES[menu_selected],
+                    menu_scroll,
+                    GAME_COLORS[menu_selected]);
     CBTS_MATRIX_show(display);
 
     menu_scroll++;

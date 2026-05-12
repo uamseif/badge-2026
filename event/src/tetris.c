@@ -14,11 +14,14 @@ static bool    ev_soft_drop; /* held state: true while soft-drop button is held 
 #define EV_EXIT      0x10
 
 static void tetris_key_cb(uint16_t key, uint8_t state) {
+    if (state == HAL_KEY_EVENT_LONG) {
+        if (key == HAL_KEY_SW_MENU) ev_pending |= EV_EXIT;
+        return;
+    }
     if (state == HAL_KEY_EVENT_DOWN) {
-        if (key == BTN_ROTATE)         ev_pending  |= EV_ROTATE;
-        if (key == BTN_HARD_DROP)      ev_pending  |= EV_HARD_DROP;
-        if (key == HAL_KEY_SW_MENU)    ev_pending  |= EV_EXIT;
-        if (key == BTN_SOFT_DROP)      ev_soft_drop = true;
+        if (key == BTN_ROTATE)    ev_pending  |= EV_ROTATE;
+        if (key == BTN_HARD_DROP) ev_pending  |= EV_HARD_DROP;
+        if (key == BTN_SOFT_DROP) ev_soft_drop = true;
     }
     /* DOWN + LONG both trigger movement (LONG = auto-repeat) */
     if (state == HAL_KEY_EVENT_DOWN || state == HAL_KEY_EVENT_LONG) {
@@ -190,6 +193,8 @@ bool tetris_update(Tetris *t, CBTS_MATRIX *display) {
     /* Consume pending events atomically */
     uint8_t ev  = ev_pending;
     ev_pending  = 0;
+
+    if (ev & EV_EXIT) return true;
 
     if (t->game_over) {
         /* Flash top row red; EXIT goes to menu, any other action restarts */

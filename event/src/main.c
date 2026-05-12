@@ -7,6 +7,11 @@
 #include "tetris.h"
 #include "pong.h"
 #include "snake.h"
+#include "arkanoid.h"
+#include "flappy.h"
+#include "space_inv.h"
+#include "frogger.h"
+#include "life.h"
 
 void Delay_Init(void);
 
@@ -14,10 +19,17 @@ void Delay_Init(void);
 #define I2C_MASTER_ADDRESS 0x00
 
 static CBTS_MATRIX display;
-static Tetris      tetris_game;
-static Pong        pong_game;
-static Snake       snake_game;
-static AppState    state = APP_MARQUEE;
+static union {
+    Tetris   t;
+    Pong     p;
+    Snake    s;
+    Arkanoid a;
+    Flappy        fl;
+    SpaceInvaders si;
+    Frogger       fr;
+    Life          li;
+} game;
+static AppState state = APP_MARQUEE;
 
 int main(void) {
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
@@ -46,27 +58,68 @@ int main(void) {
 
             case APP_MENU:
                 state = menu_update(&display);
-                if (state == APP_TETRIS) tetris_init(&tetris_game);
-                if (state == APP_PONG)   pong_init(&pong_game);
-                if (state == APP_SNAKE)  snake_init(&snake_game);
+                if (state == APP_MARQUEE)  marquee_init();
+                if (state == APP_TETRIS)   tetris_init(&game.t);
+                if (state == APP_PONG)     pong_init(&game.p);
+                if (state == APP_SNAKE)    snake_init(&game.s);
+                if (state == APP_ARKANOID) arkanoid_init(&game.a);
+                if (state == APP_FLAPPY)     flappy_init(&game.fl);
+                if (state == APP_SINVADERS)  si_init(&game.si);
+                if (state == APP_FROGGER)    frogger_init(&game.fr);
+                if (state == APP_LIFE)       life_init(&game.li);
                 break;
 
             case APP_TETRIS:
-                if (tetris_update(&tetris_game, &display)) {
+                if (tetris_update(&game.t, &display)) {
                     menu_init();
                     state = APP_MENU;
                 }
                 break;
 
             case APP_PONG:
-                if (pong_update(&pong_game, &display)) {
+                if (pong_update(&game.p, &display)) {
                     menu_init();
                     state = APP_MENU;
                 }
                 break;
 
             case APP_SNAKE:
-                if (snake_update(&snake_game, &display)) {
+                if (snake_update(&game.s, &display)) {
+                    menu_init();
+                    state = APP_MENU;
+                }
+                break;
+
+            case APP_ARKANOID:
+                if (arkanoid_update(&game.a, &display)) {
+                    menu_init();
+                    state = APP_MENU;
+                }
+                break;
+
+            case APP_FLAPPY:
+                if (flappy_update(&game.fl, &display)) {
+                    menu_init();
+                    state = APP_MENU;
+                }
+                break;
+
+            case APP_SINVADERS:
+                if (si_update(&game.si, &display)) {
+                    menu_init();
+                    state = APP_MENU;
+                }
+                break;
+
+            case APP_FROGGER:
+                if (frogger_update(&game.fr, &display)) {
+                    menu_init();
+                    state = APP_MENU;
+                }
+                break;
+
+            case APP_LIFE:
+                if (life_update(&game.li, &display)) {
                     menu_init();
                     state = APP_MENU;
                 }

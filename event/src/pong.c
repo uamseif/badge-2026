@@ -16,13 +16,16 @@ static bool ev_any;   /* any non-menu button pressed */
 static bool ev_exit;  /* MENU button pressed         */
 
 static void pong_key_cb(uint16_t key, uint8_t state) {
+    if (key == HAL_KEY_SW_MENU) {
+        if (state == HAL_KEY_EVENT_LONG) ev_exit = true;
+        return;
+    }
     if (state == HAL_KEY_EVENT_DOWN) {
-        if (key == HAL_KEY_SW_B)    p1_left  = true;
-        if (key == HAL_KEY_SW_A)    p1_right = true;
-        if (key == HAL_KEY_SW_C)    p2_left  = true;
-        if (key == HAL_KEY_SW_D)    p2_right = true;
-        if (key == HAL_KEY_SW_MENU) ev_exit  = true;
-        else                        ev_any   = true;
+        if (key == HAL_KEY_SW_B) p1_left  = true;
+        if (key == HAL_KEY_SW_A) p1_right = true;
+        if (key == HAL_KEY_SW_C) p2_left  = true;
+        if (key == HAL_KEY_SW_D) p2_right = true;
+        ev_any = true;
     }
     if (state == HAL_KEY_EVENT_UP) {
         if (key == HAL_KEY_SW_B) p1_left  = false;
