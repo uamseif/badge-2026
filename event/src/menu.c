@@ -14,11 +14,11 @@ static void any_key_cb(uint16_t key, uint8_t state) {
 
 /* ---- Game registry ---- */
 
-#define MENU_GAME_COUNT  8
+#define MENU_GAME_COUNT  7
 
-static const char * const GAME_NAMES[MENU_GAME_COUNT]  = { "TETRIS", "PONG",   "SNAKE", "ARKANOID",   "FLAPPY",   "INVADERS",    "FROGGER",  "LIFE"  };
-static const enum LedColor GAME_COLORS[MENU_GAME_COUNT] = { CYAN,     YELLOW,   GREEN,   RED,           MAGENTA,    WHITE,         GREEN,      GREEN   };
-static const AppState      GAME_STATES[MENU_GAME_COUNT] = { APP_TETRIS, APP_PONG, APP_SNAKE, APP_ARKANOID, APP_FLAPPY, APP_SINVADERS, APP_FROGGER, APP_LIFE };
+static const char * const GAME_NAMES[MENU_GAME_COUNT]  = { "TETRIS", "PONG",   "SNAKE", "ARKANOID",   "FLAPPY",   "INVADERS",    "FROGGER"    };
+static const enum LedColor GAME_COLORS[MENU_GAME_COUNT] = { CYAN,     YELLOW,   GREEN,   RED,           MAGENTA,    WHITE,         GREEN        };
+static const AppState      GAME_STATES[MENU_GAME_COUNT] = { APP_TETRIS, APP_PONG, APP_SNAKE, APP_ARKANOID, APP_FLAPPY, APP_SINVADERS, APP_FROGGER };
 
 /* ---- Text rendering (horizontal orientation) ----
  *

@@ -9,6 +9,7 @@
 
 static bool ev_exit;
 static bool ev_any;
+static bool life_ready;   /* false until callback is registered */
 
 static void life_key_cb(uint16_t key, uint8_t state) {
     if (key == HAL_KEY_SW_MENU) {
@@ -89,13 +90,27 @@ static void randomize(Life *l) {
 
 void life_init(Life *l) {
     randomize(l);
-    ev_exit = false;
-    ev_any  = false;
+    ev_exit    = false;
+    ev_any     = false;
+    life_ready = true;
     HalKeyConfig(life_key_cb);
 }
 
 bool life_update(Life *l, CBTS_MATRIX *display) {
-    if (ev_exit) return true;
+    /* Glitch entry path: arrived here without life_init, set up input only.
+     * The grid is intentionally left as-is (contains the previous game's data). */
+    if (!life_ready) {
+        ev_exit      = false;
+        ev_any       = false;
+        l->last_tick = HAL_get_tick();
+        life_ready   = true;
+        HalKeyConfig(life_key_cb);
+    }
+
+    if (ev_exit) {
+        life_ready = false;
+        return true;
+    }
 
     if (ev_any) {
         ev_any = false;

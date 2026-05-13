@@ -1,11 +1,12 @@
 #include "frogger.h"
 #include "gpio_hal.h"
 #include "systick_hal.h"
+#include "stats.h"
 
 /* ---- Lane configuration ---- */
 
 static const int8_t   LANE_DIR [FROG_LANES] = {  1, -1,  1, -1,  1, -1 };
-static const uint32_t LANE_MS_0[FROG_LANES] = { 400, 300, 250, 350, 200, 450 };
+static const uint32_t LANE_MS_0[FROG_LANES] = { 1200, 1000, 900, 1100, 800, 1300 };
 static const uint16_t LANE_INIT[FROG_LANES] = {
     0xC30C,  /* rows 2-3, 8-9, 14-15  — three 2-px cars */
     0x30C3,  /* rows 0-1, 6-7, 12-13  — three 2-px cars */
@@ -138,11 +139,12 @@ bool frogger_update(Frogger *f, CBTS_MATRIX *display) {
     /* Goal reached */
     if (f->frog_col == FROG_GOAL_COL) {
         f->score++;
+        stats_record(f->score);
         if (f->score % 5 == 0) {
             /* Speed up all lanes by 15% every 5 crossings (min 80 ms) */
             for (int l = 0; l < FROG_LANES; l++) {
                 uint32_t ms = f->lane[l].ms * 85 / 100;
-                f->lane[l].ms = ms < 80 ? 80 : ms;
+                f->lane[l].ms = ms < 600 ? 600 : ms;
             }
         }
         ev_any = false;   /* discard key that triggered crossing */
