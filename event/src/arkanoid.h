@@ -1,3 +1,4 @@
+#if 0
 #ifndef ARKANOID_H
 #define ARKANOID_H
 
@@ -10,26 +11,15 @@
 #define ARK_BRICK_ROWS 6   /* rows 0-5 are bricks */
 #define ARK_PADDLE_W   3   /* paddle pixel width */
 
-/*
- * Button layout — vertical orientation:
- *
- *  C (bottom-right) = move paddle left  (col++)
- *  D (top-right)    = move paddle right (col--)
- *  Menu             = exit to menu
- *  A / B            = launch ball while serving
- *
- * Col 0 = visual right, col 7 = visual left (inverted, same as Tetris).
- */
-
 typedef struct {
-    uint8_t  bricks[ARK_BRICK_ROWS]; /* bitmask: bit c = col c alive */
-    int8_t   paddle_x;               /* leftmost col of paddle (0 to ARK_W-ARK_PADDLE_W) */
+    uint8_t  bricks[ARK_BRICK_ROWS];
+    int8_t   paddle_x;
     int8_t   ball_r, ball_c;
-    int8_t   bdr, bdc;               /* ball row/col velocity (+1 or -1) */
+    int8_t   bdr, bdc;
     uint8_t  lives;
     uint8_t  level;
     uint16_t score;
-    uint32_t ball_ms;                /* ms per ball step */
+    uint32_t ball_ms;
     bool     serving;
     bool     game_over;
     uint32_t ball_last_tick;
@@ -37,7 +27,7 @@ typedef struct {
 } Arkanoid;
 
 void arkanoid_init(Arkanoid *a);
-/* Returns true when the player exits to the menu. */
 bool arkanoid_update(Arkanoid *a, CBTS_MATRIX *display);
 
 #endif /* ARKANOID_H */
+#endif

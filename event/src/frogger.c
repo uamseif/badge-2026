@@ -1,7 +1,6 @@
 #include "frogger.h"
 #include "gpio_hal.h"
 #include "systick_hal.h"
-#include "stats.h"
 
 /* ---- Lane configuration ---- */
 
@@ -77,9 +76,13 @@ static void render(const Frogger *f, CBTS_MATRIX *display) {
         }
     }
 
-    /* Lives (CYAN dots in start zone, upper-left corner) */
+    /* Lives (CYAN dots in start zone, left side) */
     for (uint8_t i = 0; i < f->lives; i++)
         CBTS_MATRIX_setLedWithColor(display, i, FROG_START_COL, CYAN, true);
+
+    /* Level (BLUE dots in start zone, right side) */
+    for (uint8_t i = 0; i < f->level; i++)
+        CBTS_MATRIX_setLedWithColor(display, 15 - i, FROG_START_COL, BLUE, true);
 
     /* Frog — drawn last so it appears on top */
     CBTS_MATRIX_setLedWithColor(display, f->frog_row, f->frog_col, WHITE, true);
@@ -97,6 +100,7 @@ void frogger_init(Frogger *f) {
         f->lane[l].dir       = LANE_DIR[l];
         f->lane[l].last_tick = t;
     }
+    f->level     = 5;
     f->lives     = 3;
     f->score     = 0;
     f->game_over = false;
@@ -139,7 +143,7 @@ bool frogger_update(Frogger *f, CBTS_MATRIX *display) {
     /* Goal reached */
     if (f->frog_col == FROG_GOAL_COL) {
         f->score++;
-        stats_record(f->score);
+        f->level++;
         if (f->score % 5 == 0) {
             /* Speed up all lanes by 15% every 5 crossings (min 80 ms) */
             for (int l = 0; l < FROG_LANES; l++) {

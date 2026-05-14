@@ -35,6 +35,7 @@ typedef struct {
 } FrogLane;
 
 typedef struct {
+    uint8_t  level;
     FrogLane lane[FROG_LANES];
     int8_t   frog_row;
     int8_t   frog_col;

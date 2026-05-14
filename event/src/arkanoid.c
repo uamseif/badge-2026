@@ -1,3 +1,4 @@
+#if 0
 #include "arkanoid.h"
 #include "gpio_hal.h"
 #include "systick_hal.h"
@@ -150,9 +151,9 @@ bool arkanoid_update(Arkanoid *a, CBTS_MATRIX *display) {
     int8_t nc = (int8_t)(a->ball_c + a->bdc);
 
     /* Brick collision (checked before wall clamping to avoid false hits at boundary) */
-    bool hit_r = brick_at(a, nr, a->ball_c);   /* crossed a row boundary */
-    bool hit_c = brick_at(a, a->ball_r, nc);   /* crossed a col boundary */
-    bool hit_d = brick_at(a, nr, nc);          /* diagonal / corner */
+    bool hit_r = brick_at(a, nr, a->ball_c);
+    bool hit_c = brick_at(a, a->ball_r, nc);
+    bool hit_d = brick_at(a, nr, nc);
 
     if (hit_r) { break_brick(a, nr, a->ball_c); a->bdr = -a->bdr; nr = a->ball_r; }
     if (hit_c) { break_brick(a, a->ball_r, nc); a->bdc = -a->bdc; nc = a->ball_c; }
@@ -200,3 +201,4 @@ bool arkanoid_update(Arkanoid *a, CBTS_MATRIX *display) {
     render(a, display);
     return false;
 }
+#endif

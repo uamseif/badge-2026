@@ -3,6 +3,7 @@
 #include "systick_hal.h"
 #include "font.h"
 #include "font3x5.h"
+#include "stats.h"
 
 /* ---- Shared input event flag (any key pressed) ---- */
 static bool ev_any_key;
@@ -16,9 +17,9 @@ static void any_key_cb(uint16_t key, uint8_t state) {
 
 #define MENU_GAME_COUNT  7
 
-static const char * const GAME_NAMES[MENU_GAME_COUNT]  = { "TETRIS", "PONG",   "SNAKE", "ARKANOID",   "FLAPPY",   "INVADERS",    "FROGGER"    };
-static const enum LedColor GAME_COLORS[MENU_GAME_COUNT] = { CYAN,     YELLOW,   GREEN,   RED,           MAGENTA,    WHITE,         GREEN        };
-static const AppState      GAME_STATES[MENU_GAME_COUNT] = { APP_TETRIS, APP_PONG, APP_SNAKE, APP_ARKANOID, APP_FLAPPY, APP_SINVADERS, APP_FROGGER };
+static const char * const GAME_NAMES[MENU_GAME_COUNT]  = { "TETRIS", "PONG",   "SNAKE", "FLAPPY",   "INVADERS",  "FROGGER",  "NAME ED"       };
+static const enum LedColor GAME_COLORS[MENU_GAME_COUNT] = { CYAN,     YELLOW,   GREEN,   MAGENTA,    WHITE,        GREEN,      YELLOW          };
+static const AppState      GAME_STATES[MENU_GAME_COUNT] = { APP_TETRIS, APP_PONG, APP_SNAKE, APP_FLAPPY, APP_SINVADERS, APP_FROGGER, APP_NAME_EDITOR };
 
 /* ---- Text rendering (horizontal orientation) ----
  *
@@ -94,14 +95,26 @@ static int text_scroll_width_small(const char *text) {
 
 /* ---- Marquee ---- */
 
+static char     marquee_text[20]; /* brand(11) + space(1) + name(6) + null = 19 */
 static int      marquee_scroll;
 static int      marquee_width;
 static uint8_t  marquee_color_idx;
 static uint32_t marquee_last_tick;
 
+static void build_marquee_text(void) {
+    int i = 0;
+    for (int j = 0; j < 11; j++)
+        marquee_text[i++] = p_brand_name[j];
+    marquee_text[i++] = ' ';
+    for (int j = 0; j < 6; j++)
+        marquee_text[i++] = p_player_name[j];
+    marquee_text[i] = '\0';
+}
+
 void marquee_init(void) {
+    build_marquee_text();
     marquee_scroll    = 0;
-    marquee_width     = text_scroll_width("Cibertracks");
+    marquee_width     = text_scroll_width(marquee_text);
     marquee_color_idx = 0;
     marquee_last_tick = HAL_get_tick();
     ev_any_key        = false;
@@ -121,7 +134,7 @@ bool marquee_update(CBTS_MATRIX *display) {
     };
 
     CBTS_MATRIX_clear(display);
-    draw_text(display, "Cibertracks",
+    draw_text(display, marquee_text,
               marquee_scroll,
               rainbow[marquee_color_idx % 7]);
     CBTS_MATRIX_show(display);

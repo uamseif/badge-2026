@@ -10,11 +10,12 @@ typedef enum {
     APP_TETRIS,
     APP_PONG,
     APP_SNAKE,
-    APP_ARKANOID,
     APP_FLAPPY,
     APP_SINVADERS,
     APP_FROGGER,
-    APP_LIFE,
+    APP_LIFE        = '8',  /* ASCII '8' = 56: magic char that triggers Life */
+    APP_NAME_EDITOR = 9,
+
 } AppState;
 
 void marquee_init(void);

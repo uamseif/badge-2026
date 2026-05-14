@@ -8,11 +8,12 @@
 #include "tetris.h"
 #include "pong.h"
 #include "snake.h"
-#include "arkanoid.h"
+/* #include "arkanoid.h" */
 #include "flappy.h"
 #include "space_inv.h"
 #include "frogger.h"
 #include "life.h"
+#include "name_editor.h"
 
 void Delay_Init(void);
 
@@ -24,11 +25,12 @@ static union {
     Tetris        t;
     Pong          p;
     Snake         s;
-    Arkanoid      a;
+    /* Arkanoid   a; */
     Flappy        fl;
     SpaceInvaders si;
     Frogger       fr;
     Life          li;
+    NameEditor    ne;
 } game;
 
 int main(void) {
@@ -61,20 +63,15 @@ int main(void) {
 
             case APP_MENU: {
                 uint8_t sel = (uint8_t)menu_update(&display);
-                if (sel == APP_MARQUEE) { marquee_init(); game_state = APP_MARQUEE; run = APP_MARQUEE; break; }
-                if (sel == APP_FROGGER) {
-                    if (game_state != APP_MENU) { run = game_state; break; }
-                    frogger_init(&game.fr);
-                    game_state = APP_FROGGER;
-                    run = APP_FROGGER;
-                    break;
-                }
-                if (sel == APP_TETRIS)    tetris_init(&game.t);
-                if (sel == APP_PONG)      pong_init(&game.p);
-                if (sel == APP_SNAKE)     snake_init(&game.s);
-                if (sel == APP_ARKANOID)  arkanoid_init(&game.a);
-                if (sel == APP_FLAPPY)    flappy_init(&game.fl);
-                if (sel == APP_SINVADERS) si_init(&game.si);
+                if (sel == APP_MARQUEE)     marquee_init();
+                if (sel == APP_TETRIS)      tetris_init(&game.t);
+                if (sel == APP_PONG)        pong_init(&game.p);
+                if (sel == APP_SNAKE)       snake_init(&game.s);
+                /* if (sel == APP_ARKANOID) arkanoid_init(&game.a); */
+                if (sel == APP_FLAPPY)      flappy_init(&game.fl);
+                if (sel == APP_SINVADERS)   si_init(&game.si);
+                if (sel == APP_FROGGER)     frogger_init(&game.fr);
+                if (sel == APP_NAME_EDITOR) name_editor_init(&game.ne);
                 game_state = sel;
                 run = sel;
                 break;
@@ -98,11 +95,11 @@ int main(void) {
                 }
                 break;
 
-            case APP_ARKANOID:
+            /* case APP_ARKANOID:
                 if (arkanoid_update(&game.a, &display)) {
                     menu_init(); game_state = APP_MENU; run = APP_MENU;
                 }
-                break;
+                break; */
 
             case APP_FLAPPY:
                 if (flappy_update(&game.fl, &display)) {
@@ -118,9 +115,7 @@ int main(void) {
 
             case APP_FROGGER:
                 if (frogger_update(&game.fr, &display)) {
-                    menu_init();
-                    if (game_state == APP_FROGGER) game_state = APP_MENU;
-                    run = APP_MENU;
+                    menu_init(); game_state = APP_MENU; run = APP_MENU;
                 }
                 break;
 
@@ -128,6 +123,22 @@ int main(void) {
                 if (life_update(&game.li, &display)) {
                     menu_init(); game_state = APP_MENU; run = APP_MENU;
                 }
+                break;
+
+            case APP_NAME_EDITOR:
+                if (name_editor_update(&game.ne, &display)) {
+                    if (game_state == (uint8_t)APP_NAME_EDITOR) {
+                        game_state = APP_MENU;
+                        menu_init();
+                        run = APP_MENU;
+                    } else {
+                        run = game_state;
+                    }
+                }
+                break;
+
+            default:
+                menu_init(); game_state = APP_MENU; run = APP_MENU;
                 break;
         }
 
