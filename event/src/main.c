@@ -56,8 +56,7 @@ int main(void) {
             case APP_MARQUEE:
                 if (marquee_update(&display)) {
                     menu_init();
-                    game_state = APP_MENU;
-                    run = APP_MENU;
+                    game_state = run = APP_MENU;
                 }
                 break;
 
@@ -72,56 +71,55 @@ int main(void) {
                 if (sel == APP_SINVADERS)   si_init(&game.si);
                 if (sel == APP_FROGGER)     frogger_init(&game.fr);
                 if (sel == APP_NAME_EDITOR) name_editor_init(&game.ne);
-                game_state = sel;
-                run = sel;
+                game_state = run = sel;
                 break;
             }
 
             case APP_TETRIS:
                 if (tetris_update(&game.t, &display)) {
-                    menu_init(); game_state = APP_MENU; run = APP_MENU;
+                    menu_init(); game_state = run = APP_MENU;
                 }
                 break;
 
             case APP_PONG:
                 if (pong_update(&game.p, &display)) {
-                    menu_init(); game_state = APP_MENU; run = APP_MENU;
+                    menu_init(); game_state = run = APP_MENU;
                 }
                 break;
 
             case APP_SNAKE:
                 if (snake_update(&game.s, &display)) {
-                    menu_init(); game_state = APP_MENU; run = APP_MENU;
+                    menu_init(); game_state = run = APP_MENU;
                 }
                 break;
 
             /* case APP_ARKANOID:
                 if (arkanoid_update(&game.a, &display)) {
-                    menu_init(); game_state = APP_MENU; run = APP_MENU;
+                    menu_init(); game_state = run = APP_MENU;
                 }
                 break; */
 
             case APP_FLAPPY:
                 if (flappy_update(&game.fl, &display)) {
-                    menu_init(); game_state = APP_MENU; run = APP_MENU;
+                    menu_init(); game_state = run = APP_MENU;
                 }
                 break;
 
             case APP_SINVADERS:
                 if (si_update(&game.si, &display)) {
-                    menu_init(); game_state = APP_MENU; run = APP_MENU;
+                    menu_init(); game_state = run = APP_MENU;
                 }
                 break;
 
             case APP_FROGGER:
                 if (frogger_update(&game.fr, &display)) {
-                    menu_init(); game_state = APP_MENU; run = APP_MENU;
+                    menu_init(); game_state = run = APP_MENU;
                 }
                 break;
 
             case APP_LIFE:
                 if (life_update(&game.li, &display)) {
-                    menu_init(); game_state = APP_MENU; run = APP_MENU;
+                    menu_init(); game_state = run = APP_MENU;
                 }
                 break;
 

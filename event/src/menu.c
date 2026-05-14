@@ -105,9 +105,16 @@ static void build_marquee_text(void) {
     int i = 0;
     for (int j = 0; j < 11; j++)
         marquee_text[i++] = p_brand_name[j];
-    marquee_text[i++] = ' ';
+
+    bool has_name = false;
     for (int j = 0; j < 6; j++)
-        marquee_text[i++] = p_player_name[j];
+        if (p_player_name[j] != ' ') { has_name = true; break; }
+
+    if (has_name) {
+        marquee_text[i++] = ' ';
+        for (int j = 0; j < 6; j++)
+            marquee_text[i++] = p_player_name[j];
+    }
     marquee_text[i] = '\0';
 }
 

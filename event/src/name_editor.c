@@ -9,17 +9,20 @@
 static bool   ev_exit;
 static int8_t ev_glyph;
 static int8_t ev_cursor;
+static bool   stay_in_editor;
+static bool   reset_cursor;
 
 static void ne_key_cb(uint16_t key, uint8_t state) {
-    if (key == HAL_KEY_SW_MENU) {
-        if (state == HAL_KEY_EVENT_LONG) ev_exit = true;
-        return;
+    if (state == HAL_KEY_EVENT_DOWN) {
+        if (key == HAL_KEY_SW_A) ev_glyph = -1;
+        if (key == HAL_KEY_SW_D) ev_glyph = +1;
+        if (key == HAL_KEY_SW_B) ev_cursor = -1;
+        if (key == HAL_KEY_SW_C) ev_cursor = +1;
+        if (key == HAL_KEY_SW_MENU) stay_in_editor = false;
+    } else if (state == HAL_KEY_EVENT_LONG) {
+        if (!stay_in_editor) reset_cursor = true;
+        ev_exit = true;
     }
-    if (state != HAL_KEY_EVENT_DOWN) return;
-    if (key == HAL_KEY_SW_A) ev_glyph = -1;
-    if (key == HAL_KEY_SW_D) ev_glyph = +1;
-    if (key == HAL_KEY_SW_B) ev_cursor = -1;
-    if (key == HAL_KEY_SW_C) ev_cursor = +1;
 }
 
 static int ascii_to_glyph(char c) {
@@ -61,10 +64,24 @@ static void render(const NameEditor *ne, CBTS_MATRIX *display) {
 }
 
 void name_editor_init(NameEditor *ne) {
-    if (ne->cursor < NAME_LEN) ne->cursor = 0;
-    ev_exit    = false;
-    ev_glyph   = 0;
-    ev_cursor  = 0;
+    int8_t current_cursor = -1;
+    for (uint8_t i = 0; i < NAME_LEN; i++) {
+        if (p_player_name[i] == ' ') {
+            current_cursor = i;
+            break;
+        }
+    }
+    if (current_cursor >= 0 ) {
+        ne->cursor = current_cursor;
+    } else if (reset_cursor) {
+        ne->cursor = 0;
+    }
+
+    stay_in_editor = true;
+    reset_cursor = false;
+    ev_exit   = false;
+    ev_glyph  = 0;
+    ev_cursor = 0;
     HalKeyConfig(ne_key_cb);
 }
 
