@@ -14,6 +14,7 @@
 #include "frogger.h"
 #include "life.h"
 #include "name_editor.h"
+#include "tictac.h"
 
 void Delay_Init(void);
 
@@ -31,6 +32,7 @@ static union {
     Frogger       fr;
     Life          li;
     NameEditor    ne;
+    TicTac        ttt;
 } game;
 
 int main(void) {
@@ -70,7 +72,8 @@ int main(void) {
                 if (sel == APP_FLAPPY)      flappy_init(&game.fl);
                 if (sel == APP_SINVADERS)   si_init(&game.si);
                 if (sel == APP_FROGGER)     frogger_init(&game.fr);
-                if (sel == APP_NAME_EDITOR) name_editor_init(&game.ne);
+                if (sel == APP_NAME_EDITOR)  name_editor_init(&game.ne);
+                if (sel == APP_TICTAC)       tictac_init(&game.ttt);
                 game_state = run = sel;
                 break;
             }
@@ -119,6 +122,12 @@ int main(void) {
 
             case APP_LIFE:
                 if (life_update(&game.li, &display)) {
+                    menu_init(); game_state = run = APP_MENU;
+                }
+                break;
+
+            case APP_TICTAC:
+                if (tictac_update(&game.ttt, &display)) {
                     menu_init(); game_state = run = APP_MENU;
                 }
                 break;

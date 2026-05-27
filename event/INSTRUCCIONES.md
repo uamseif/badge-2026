@@ -123,6 +123,25 @@ Guía a la rana cruzando los carriles de tráfico hasta llegar al otro lado.
 
 ---
 
+### Tres en raya
+Juego para dos jugadores en el mismo badge. Los jugadores alternan turnos colocando sus fichas.
+
+- El jugador 1 juega con **X** (rojo) — el cursor parpadea en rojo en su turno.
+- El jugador 2 juega con **O** (azul) — el cursor parpadea en azul en su turno.
+
+| Botón | Acción |
+|-------|--------|
+| A | Mover cursor arriba |
+| D | Mover cursor abajo |
+| B | Mover cursor a la izquierda |
+| C | Mover cursor a la derecha |
+| MENU | Colocar ficha |
+| MENU (largo) | Salir al menú |
+
+Al terminar la partida, pulsa cualquier botón para volver a jugar.
+
+---
+
 ## Editor de nombre
 
 Configura un nombre de hasta 6 caracteres que aparecerá en la marquesina junto al nombre Cibertracks.

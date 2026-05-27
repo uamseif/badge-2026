@@ -14,7 +14,8 @@ typedef enum {
     APP_SINVADERS   = '6',
     APP_FROGGER     = '7',
     APP_LIFE        = '8',
-    APP_NAME_EDITOR = '9',
+    APP_NAME_EDITOR  = '9',
+    APP_TICTAC       = 'A',
 } AppState;
 
 void marquee_init(void);

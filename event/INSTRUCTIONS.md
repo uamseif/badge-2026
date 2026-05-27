@@ -11,12 +11,12 @@ Your badge is a wearable game console built around a CH32V003 RISC-V microcontro
 Hold the badge **horizontally** (landscape), with the LED matrix facing you. The display is 16 columns wide and 8 rows tall.
 
 ```
-  ┌─────────────────────────────┐
-  │  · · · · · · · · · · · · · │
-  │  · · · · · · · · · · · · · │  ← 8×16 LED matrix
-  │  · · · · · · · · · · · · · │
-  └─────────────────────────────┘
-       [MENU]   [A] [B] [C] [D]
+                  [MENU]
+  [A]┌─────────────────────────────┐[C]
+     │  · · · · · · · · · · · · ·  │
+     │  · · · · · · · · · · · · ·  │  ← LEDs MATRIX 8×16
+     │  · · · · · · · · · · · · ·  │
+  [B]└─────────────────────────────┘[D]
 ```
 
 ---
@@ -32,14 +32,6 @@ Hold the badge **horizontally** (landscape), with the LED matrix facing you. The
 | **D** | Down / next |
 
 > **Long press** means holding a button for roughly one second until the action triggers.
-
----
-
-## Boot Sequence
-
-On power-up the badge shows a **scrolling marquee** with the Cibertracks brand name (and your custom name once you set one). The marquee cycles through rainbow colours.
-
-Press **any button** to enter the game selection menu.
 
 ---
 
@@ -131,6 +123,25 @@ Guide the frog across traffic lanes and reach the other side safely.
 
 ---
 
+### Tic-Tac-Toe
+Two-player game on a shared badge. Players alternate turns placing their pieces.
+
+- Player 1 plays **X** (red) — cursor blinks red on their turn.
+- Player 2 plays **O** (blue) — cursor blinks blue on their turn.
+
+| Button | Action |
+|--------|--------|
+| A | Move cursor up |
+| D | Move cursor down |
+| B | Move cursor left |
+| C | Move cursor right |
+| MENU | Place piece |
+| MENU (long) | Exit to menu |
+
+When the game ends, press any button to play again.
+
+---
+
 ## Name Editor
 
 Set a 6-character name that appears in the scrolling marquee alongside the Cibertracks brand.
@@ -148,9 +159,3 @@ Set a 6-character name that appears in the scrolling marquee alongside the Ciber
 **Character set:** uppercase letters A–Z and digits 0–9.
 
 ---
-
-## Tips
-
-- Names are saved in memory and persist between games — no need to re-enter.
-- The marquee updates with your name immediately after you exit the name editor.
-- If the badge freezes or behaves unexpectedly, a quick power cycle resets everything.
