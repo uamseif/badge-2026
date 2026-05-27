@@ -103,7 +103,7 @@ static uint32_t marquee_last_tick;
 
 static void build_marquee_text(void) {
     int i = 0;
-    for (int j = 0; j < 11; j++)
+    for (int j = 0; p_brand_name[j]; j++)
         marquee_text[i++] = p_brand_name[j];
 
     bool has_name = false;

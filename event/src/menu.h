@@ -5,17 +5,16 @@
 #include "cbts_matrix.h"
 
 typedef enum {
-    APP_MARQUEE = 0,
-    APP_MENU,
-    APP_TETRIS,
-    APP_PONG,
-    APP_SNAKE,
-    APP_FLAPPY,
-    APP_SINVADERS,
-    APP_FROGGER,
-    APP_LIFE        = '8',  /* ASCII '8' = 56: magic char that triggers Life */
-    APP_NAME_EDITOR = 9,
-
+    APP_MARQUEE     = '0',
+    APP_MENU        = '1',
+    APP_TETRIS      = '2',
+    APP_PONG        = '3',
+    APP_SNAKE       = '4',
+    APP_FLAPPY      = '5',
+    APP_SINVADERS   = '6',
+    APP_FROGGER     = '7',
+    APP_LIFE        = '8',
+    APP_NAME_EDITOR = '9',
 } AppState;
 
 void marquee_init(void);

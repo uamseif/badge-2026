@@ -30,12 +30,12 @@
 typedef struct {
     uint16_t mask;       /* bit N = car at display row N */
     uint32_t last_tick;
-    uint32_t ms;         /* ms per step */
     int8_t   dir;        /* +1=right (mask<<), -1=left (mask>>) */
 } FrogLane;
 
 typedef struct {
     uint8_t  level;
+    uint16_t speed_pct;  /* speed knob: 100=normal, higher=faster */
     FrogLane lane[FROG_LANES];
     int8_t   frog_row;
     int8_t   frog_col;

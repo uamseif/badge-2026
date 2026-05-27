@@ -6,7 +6,7 @@ static struct {
     char    brand[12];
 } _s = {
     .name  = {' ', ' ', ' ', ' ', ' ', ' '},
-    .brand = "Cibertracks"
+    .brand = "C1b3rtr4cks"
 };
 
 uint8_t * const p_game_state  = &_s.gs;

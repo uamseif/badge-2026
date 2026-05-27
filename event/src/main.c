@@ -44,7 +44,7 @@ int main(void) {
 
     CBTS_MATRIX_init(&display);
     CBTS_MATRIX_begin(&display);
-
+    CBTS_MATRIX_setBrightness(&display, 4);
     marquee_init();
 
     uint8_t run = APP_MARQUEE;

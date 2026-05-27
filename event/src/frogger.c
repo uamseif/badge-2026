@@ -96,11 +96,11 @@ void frogger_init(Frogger *f) {
     uint32_t t = HAL_get_tick();
     for (int l = 0; l < FROG_LANES; l++) {
         f->lane[l].mask      = LANE_INIT[l];
-        f->lane[l].ms        = LANE_MS_0[l];
         f->lane[l].dir       = LANE_DIR[l];
         f->lane[l].last_tick = t;
     }
-    f->level     = 5;
+    f->level     = 0;
+    f->speed_pct = 150;
     f->lives     = 3;
     f->score     = 0;
     f->game_over = false;
@@ -127,7 +127,9 @@ bool frogger_update(Frogger *f, CBTS_MATRIX *display) {
 
     /* Advance lanes */
     for (int l = 0; l < FROG_LANES; l++) {
-        if (now - f->lane[l].last_tick >= f->lane[l].ms) {
+        uint32_t ms = (uint32_t)LANE_MS_0[l] * 100 / f->speed_pct;
+        if (ms < 300) ms = 300;
+        if (now - f->lane[l].last_tick >= ms) {
             f->lane[l].last_tick = now;
             step_lane(&f->lane[l]);
         }
@@ -145,11 +147,8 @@ bool frogger_update(Frogger *f, CBTS_MATRIX *display) {
         f->score++;
         f->level++;
         if (f->score % 5 == 0) {
-            /* Speed up all lanes by 15% every 5 crossings (min 80 ms) */
-            for (int l = 0; l < FROG_LANES; l++) {
-                uint32_t ms = f->lane[l].ms * 85 / 100;
-                f->lane[l].ms = ms < 600 ? 600 : ms;
-            }
+            /* Speed up all lanes by 15% every 5 crossings */
+            f->speed_pct = f->speed_pct * 115 / 100;
         }
         ev_any = false;   /* discard key that triggered crossing */
         respawn(f);
