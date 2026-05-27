@@ -136,14 +136,20 @@ bool marquee_update(CBTS_MATRIX *display) {
     if (now - marquee_last_tick < 50) return false;
     marquee_last_tick = now;
 
+#ifdef IS_SPEAKER
+    static const enum LedColor rainbow[] = { BLUE };
+    static const uint8_t rainbow_len = 1;
+#else
     static const enum LedColor rainbow[] = {
-        RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA, WHITE
+        RED, YELLOW, GREEN, CYAN, MAGENTA, WHITE
     };
+    static const uint8_t rainbow_len = 6;
+#endif
 
     CBTS_MATRIX_clear(display);
     draw_text(display, marquee_text,
               marquee_scroll,
-              rainbow[marquee_color_idx % 7]);
+              rainbow[marquee_color_idx % rainbow_len]);
     CBTS_MATRIX_show(display);
 
     marquee_scroll++;

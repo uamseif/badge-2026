@@ -1,6 +1,10 @@
 #ifndef MENU_H
 #define MENU_H
 
+/* Uncomment to build a speaker badge (blue-only marquee).
+ * Leave commented for attendee badge (rainbow minus blue). */
+//#define IS_SPEAKER
+
 #include <stdbool.h>
 #include "cbts_matrix.h"
 
