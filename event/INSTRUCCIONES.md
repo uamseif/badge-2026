@@ -1,4 +1,4 @@
-# Badge Cibertracks — Guía de usuario
+# Badge C1B3RTR4CKS — Guía de usuario
 
 ## Descripción general
 
@@ -151,3 +151,9 @@ Configura un nombre de hasta 6 caracteres que aparecerá en la marquesina junto 
 **Pantalla:** el carácter actual se muestra en blanco en el centro. Los caracteres adyacentes aparecen en azul a cada lado. Seis puntos en la fila inferior indican la posición del cursor.
 
 **Caracteres disponibles:** letras mayúsculas A–Z y dígitos 0–9.
+
+---
+
+## Agradecimientos
+
+Gracias a la Asociación de Videojuegos de la UAM por la colaboración, en especial a su presidente Guillermo ([@KillDaWill](https://github.com/KillDaWill))
