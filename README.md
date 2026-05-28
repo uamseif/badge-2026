@@ -54,8 +54,10 @@ Optional:
 
 ### 1. Clone the Repository
 
+```
 git clone https://github.com/uamseif/badge-2026.git  
 cd badge-2026
+```
 
 ### 2. Open with PlatformIO
 
@@ -69,12 +71,12 @@ If using VSCode:
 
 Each example is typically organized as:
 
+```
 /examples  
-    /board_tester_noneos-sdk
+/board_tester_noneos-sdk
+```
 
-
-
-ou can:
+You can:
 
 - Change the `src/` folder contents
 
@@ -84,14 +86,20 @@ ou can:
 
 ### 4. Build the Project
 
+```
 pio run
+```
 
 ### 5. Upload to the Badge
 
+```
 pio run --target upload
+```
 
 ### 6. Open Serial Monitor (Optional)
 
+```
 pio device monitor
+```
 
 
