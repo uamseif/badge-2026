@@ -1,4 +1,4 @@
-# Cibertracks Badge — User Guide
+# C1B3RTR4CKS Badge — User Guide
 
 ## Overview
 
@@ -21,7 +21,7 @@ Hold the badge **horizontally** (landscape), with the LED matrix facing you. The
 
 | Button | Description |
 |:--------:|-------------|
-| **MENU** | Context-sensitive: short press = action, long press (hold) = exit / back |
+| **MENU** | Context-sensitive: **short press** = action, **long press** (hold) = exit / back |
 | **A** | Up / previous |
 | **B** | Left |
 | **C** | Right |
@@ -153,3 +153,7 @@ Set a 6-character name that appears in the scrolling marquee alongside the Ciber
 **Character set:** uppercase letters A–Z and digits 0–9.
 
 ---
+
+## Acknowledgments
+
+Thanks to the UAM Video Game Association for their collaboration, especially its president Guillermo ([@KillDaWill](https://github.com/KillDaWill))
